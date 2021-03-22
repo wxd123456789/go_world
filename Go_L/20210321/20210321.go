@@ -31,7 +31,7 @@ func testReflect() {
 	fmt.Println(t.Kind() == reflect.Int) // 输出true
 }
 
-func testAppend(){
+func testAppend() {
 	s0 := []int{0}
 	s1 := append(s0, 2)
 	s2 := append(s0, s1...)
@@ -52,6 +52,8 @@ func testCast() {
 
 func main() {
 	testCast()
+	var a chan int
+	fmt.Println(a == nil)
 	//testS()
 	//fmt.Println(StringSliceEqualBCE([]string{"a1", "b"}, []string{"a", "b"}))
 	//fmt.Println(T2)

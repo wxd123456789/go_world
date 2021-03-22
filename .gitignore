@@ -52,12 +52,13 @@ target/
 Thumbs.db
 Servers
 .metadata
-upload
 gen_code
 
 ##
 .gitbook.yaml
 
 ##
-litermall_go/pkg
-litermall_go/src/litermall/log
+pkg
+log
+node_modules
+
