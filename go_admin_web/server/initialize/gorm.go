@@ -78,7 +78,6 @@ func GormMysql() *gorm.DB {
 	}
 	if db, err := gorm.Open(mysql.New(mysqlConfig), gormConfig(m.LogMode)); err != nil {
 		global.GVA_LOG.Error("MySQL启动异常", zap.Any("err", err))
-		os.Exit(0)
 		return nil
 	} else {
 		sqlDB, _ := db.DB()

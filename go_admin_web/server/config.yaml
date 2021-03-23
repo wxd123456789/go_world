@@ -1,102 +1,72 @@
-# Gin-Vue-Admin Global Configuration
-
-# jwt configuration
-jwt:
-  signing-key: 'qmPlus'
-  expires-time: 604800
-  buffer-time: 86400
-
-# zap logger configuration
-zap:
-  level: 'info'
-  format: 'console'
-  prefix: '[GIN-VUE-ADMIN]'
-  director: 'log'
-  link-name: 'latest_log'
-  show-line: true
-  encode-level: 'LowercaseColorLevelEncoder'
-  stacktrace-key: 'stacktrace'
-  log-in-console: true
-
-# redis configuration
-redis:
-  db: 0
-  addr: '192.168.135.128:6379'
-  password: '123456'
-
-# email configuration
-email:
-  to: 'xxx@qq.com'
-  port: 465
-  from: 'xxx@163.com'
-  host: 'smtp.163.com'
-  is-ssl: true
-  secret: 'xxx'
-  nickname: 'test'
-
-# casbin configuration
-casbin:
-  model-path: './resource/rbac_model.conf'
-
-# system configuration
-system:
-  env: 'public'  # Change to "develop" to skip authentication for development mode
-  addr: 8888
-  db-type: 'mysql'
-  oss-type: 'local'    # 控制oss选择走本期还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
-
-# captcha configuration
+aliyun-oss:
+  access-key-id: yourAccessKeyId
+  access-key-secret: yourAccessKeySecret
+  bucket-name: yourBucketName
+  bucket-url: yourBucketUrl
+  endpoint: yourEndpoint
 captcha:
-  key-long: 6
-  img-width: 240
   img-height: 80
-
-# mysql connect configuration
+  img-width: 240
+  key-long: 6
+casbin:
+  model-path: ./resource/rbac_model.conf
+email:
+  from: xxx@163.com
+  host: smtp.163.com
+  is-ssl: true
+  nickname: test
+  port: 465
+  secret: xxx
+  to: xxx@qq.com
+excel:
+  dir: ./resource/excel/
+jwt:
+  buffer-time: 86400
+  expires-time: 604800
+  signing-key: qmPlus
+local:
+  path: uploads/file
 mysql:
-  path: '192.168.135.128:3306'
-  config: ''
-#  db-name: 'go_web_db'
-#  username: 'go_web_user'
-  db-name: 'mall'
-  username: 'root'
-  password: '123456'
-  max-idle-conns: 10
-  max-open-conns: 100
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db-name: go_web_db
   log-mode: false
   log-zap: ""
-
-# local configuration
-local:
-  path: 'uploads/file'
-
-# qiniu configuration (请自行七牛申请对应的 公钥 私钥 bucket �?域名地址)
+  max-idle-conns: 10
+  max-open-conns: 100
+  password: "123456"
+  path: 127.0.0.1:3306
+  username: root
 qiniu:
-  zone: 'ZoneHuadong'
-  bucket: 'qm-plus-img'
-  img-path: 'http://qmplusimg.henrongyi.top'
-  use-https: false
-  access-key: '25j8dYBZ2wuiy0yhwShytjZDTX662b8xiFguwxzZ'
-  secret-key: 'pgdbqEsf7ooZh7W3xokP833h3dZ_VecFXPDeG5JY'
+  access-key: 25j8dYBZ2wuiy0yhwShytjZDTX662b8xiFguwxzZ
+  bucket: qm-plus-img
+  img-path: http://qmplusimg.henrongyi.top
+  secret-key: pgdbqEsf7ooZh7W3xokP833h3dZ_VecFXPDeG5JY
   use-cdn-domains: false
-
-
-# aliyun oss configuration
-aliyun-oss:
-  endpoint: 'yourEndpoint'
-  access-key-id: 'yourAccessKeyId'
-  access-key-secret: 'yourAccessKeySecret'
-  bucket-name: 'yourBucketName'
-  bucket-url: 'yourBucketUrl'
-
-# tencent cos configuration
+  use-https: false
+  zone: ZoneHuadong
+redis:
+  addr: 192.168.135.128:6379
+  db: 0
+  password: "123456"
+system:
+  addr: 8888
+  db-type: mysql
+  env: public
+  oss-type: local
 tencent-cos:
-  bucket: 'xxxxx-10005608'
-  region: 'ap-shanghai'
-  secret-id: 'xxxxxxxx'
-  secret-key: 'xxxxxxxx'
-  base-url: 'https://gin.vue.admin'
-  path-prefix: 'gin-vue-admin'
-
-# excel configuration
-excel:
-  dir: './resource/excel/'
+  base-url: https://gin.vue.admin
+  bucket: xxxxx-10005608
+  path-prefix: gin-vue-admin
+  region: ap-shanghai
+  secret-id: xxxxxxxx
+  secret-key: xxxxxxxx
+zap:
+  director: log
+  encode-level: LowercaseColorLevelEncoder
+  format: console
+  level: info
+  link-name: latest_log
+  log-in-console: true
+  prefix: '[GIN-VUE-ADMIN]'
+  show-line: true
+  stacktrace-key: stacktrace

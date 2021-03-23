@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"time"
 )
 
 //@author: [songzhibin97](https://github.com/songzhibin97)
@@ -78,9 +79,10 @@ func InitDB(conf request.InitDB) error {
 		conf.Port = "3306"
 	}
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/", conf.UserName, conf.Password, conf.Host, conf.Port)
-	fmt.Println(dsn)
+	global.GVA_LOG.Info(dsn)
 	createSql := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;", conf.DBName)
 	if err := createTable(dsn, "mysql", createSql); err != nil {
+		global.GVA_LOG.Info(err.Error())
 		return err
 	}
 	setting := map[string]interface{}{
@@ -91,14 +93,14 @@ func InitDB(conf request.InitDB) error {
 		"mysql.config":   "charset=utf8mb4&parseTime=True&loc=Local",
 	}
 	if err := writeConfig(global.GVA_VP, setting); err != nil {
+		global.GVA_LOG.Info(err.Error())
 		return err
 	}
+	// wait write in config yaml and to global.GVA_CONFIG finish
+	time.Sleep(time.Second)
 	m := global.GVA_CONFIG.Mysql
-	if m.Dbname == "" {
-		return nil
-	}
-
 	linkDns := m.Username + ":" + m.Password + "@tcp(" + m.Path + ")/" + m.Dbname + "?" + m.Config
+	global.GVA_LOG.Info("mysql connect url " + linkDns)
 	mysqlConfig := mysql.Config{
 		DSN:                       linkDns, // DSN data source name
 		DefaultStringSize:         191,     // string 类型字段的默认长度
